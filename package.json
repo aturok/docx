@@ -73,7 +73,7 @@
     "@types/unzipper": "^0.10.4",
     "@types/webpack": "^5.0.0",
     "buffer": "^6.0.3",
-    "chai": "^3.5.0",
+    "chai": "^4.3.6",
     "cspell": "^6.2.2",
     "docsify-cli": "^4.3.0",
     "glob": "^8.0.1",
