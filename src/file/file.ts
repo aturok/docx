@@ -140,17 +140,21 @@ export class File {
     }
 
     private addSection({ headers = {}, footers = {}, children, properties }: ISectionOptions): void {
+        const findByType = <ItemType extends { readonly type: string }>(where: ItemType[], type: string) => {
+            return where.find((item) => item.type === type);
+        };
+
         this.documentWrapper.View.Body.addSection({
             ...properties,
             headerWrapperGroup: {
-                default: headers.default ? this.createHeader(headers.default) : undefined,
-                first: headers.first ? this.createHeader(headers.first) : undefined,
-                even: headers.even ? this.createHeader(headers.even) : undefined,
+                default: headers.default ? this.createHeader(headers.default) : findByType(this.headers, "default")?.header,
+                first: headers.first ? this.createHeader(headers.first) : findByType(this.headers, "first")?.header,
+                even: headers.even ? this.createHeader(headers.even) : findByType(this.headers, "event")?.header,
             },
             footerWrapperGroup: {
-                default: footers.default ? this.createFooter(footers.default) : undefined,
-                first: footers.first ? this.createFooter(footers.first) : undefined,
-                even: footers.even ? this.createFooter(footers.even) : undefined,
+                default: footers.default ? this.createFooter(footers.default) : findByType(this.footers, "default")?.footer,
+                first: footers.first ? this.createFooter(footers.first) : findByType(this.footers, "first")?.footer,
+                even: footers.even ? this.createFooter(footers.even) : findByType(this.footers, "even")?.footer,
             },
         });
 
